@@ -1,0 +1,49 @@
+# Archivo del puerto USB al que se conecta el transceiver
+puerto com6
+# Archivo .csv al que guardar los datos registrados
+archivo Datos.csv
+# Lista de Funciones por Linea que se desea registrar:
+# 0: 'Tension de Linea',
+# 1: 'Corriente',
+# 2: 'Potencia Activa',
+# 3: 'Potencia Reactiva',
+# 4: 'Factor de Potencia',
+# 5: 'Porcentaje de Distorsion Total por Armonicos en Tension',
+# 6: 'Porcentaje de Distorsion Total por Armonicos en Corriente'
+lista_por_linea 0,1,2,3,4
+# Lista de Funciones Trifasicas que se desea registrar:
+# 0: 'Frecuencia',
+# 1: 'Potencia Activa III',
+# 2: 'Potencia Inductiva III',
+# 3: 'Potencia Capacitiva III',
+# 4: 'Coseno Fi',
+# 5: 'Factor de Potencia III',
+# 6: 'Tension entre Lineas L1 y L2',
+# 7: 'Tension entre Lineas L2 y L3',
+# 8: 'Tension entre Lineas L3 y L1',
+# 9: 'Potencia Aparente III',
+# 10: 'Demanda Maxima',
+# 11: 'Corriente de las Tres Fases',
+# 12: 'Corriente de Neutro',
+# 13: 'Demanda Maxima A2',
+# 14: 'Demanda Maxima A3',
+# 15: 'Energia Activa',
+# 16: 'Energia Reactiva Inductiva',
+# 17: 'Energia Reactiva Capacitiva',
+# 18: 'Energia Aparente',
+# 19: 'Energia Activa Generada',
+# 20: 'Energia Inductiva Generada',
+# 21: 'Energia Capacitiva Generada',
+# 22: 'Energia Aparente Generada'
+lista_trifasicas 1,2,3,4,5,6,7,8
+# Variables a registrar:
+# instant  : La lectura registrada en el momento
+# max      : La maxima lectura registrada
+# min      : La minima lectura registrada
+cual instant
+# Periodo de muestreo en segundos
+periodo_muestreo 1.0
+# Periodo de registro en minutos
+periodo_registro 0.2
+# URL a la que mandar los datos registrados.
+url http://10.176.61.47/Circuitor/register.php
