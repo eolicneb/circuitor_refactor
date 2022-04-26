@@ -1,6 +1,10 @@
 from CircuitorCVM96 import CircuitorCVM96
 from functools import cached_property
-from numpy import array
+
+
+class CommaList(list):
+    def __str__(self):
+        return ",".join(self)
 
 
 class DataCollector:
@@ -26,7 +30,7 @@ class DataCollector:
         encabezados = [f"{self.instrumento.TitulosDeFuncionesPorLinea[a]} L{n}"
                        for n in [1, 2, 3] for a in self.por_linea]
         encabezados += [self.instrumento.TitulosDeFuncionesTrifasicas[b] for b in self.trifasica]
-        return encabezados
+        return CommaList(encabezados)
 
     def muestrear(self):
         datos_por_linea = [self.instrumento.FuncionesPorLinea[consulta](L=n, cual=self.tipo_muestreo)

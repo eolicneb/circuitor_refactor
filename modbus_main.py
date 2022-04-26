@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # -- coding: utf-8 --
 import logging
-from os import path, getcwd, environ
-from time import sleep, asctime, localtime
-from datetime import date
-from os.path import isfile
 import requests
 import threading as thr
+from time import sleep
+from os import path, getcwd, environ
 
 from CircuitorCVM96 import CircuitorCVM96
 
@@ -24,7 +22,7 @@ logger.setLevel(logging.DEBUG if "DEBUG" in environ else logging.INFO)
 
 def empezar_thread(funcion, nombre, parametros):
     thr_envio = thr.Thread(group=None, target=funcion,
-                           name=nombre, args=tuple(*parametros))
+                           name=nombre, args=parametros)
     thr_envio.start()
 
 
@@ -41,7 +39,7 @@ def mandar_datos(tiempo, data_collector, url):
 
 def registrar_archivo(tiempo, data_collector: DataCollector, linea=None, intento=0):
     archivo = f"{tiempo.date()}.csv"
-    con_encabezado = not isfile(archivo) and data_collector.encabezados is not None
+    con_encabezado = not path.isfile(archivo) and data_collector.encabezados is not None
     linea = linea if linea else f"{tiempo},{data_collector.promedios_str()}"
     try:
         intento += 1
@@ -86,6 +84,7 @@ def main():
             collector.muestrear()
 
         if time_controller.es_hora_de_registro():
+            collector.promedios()
             registrar(ahora, collector, setup.url)
 
 

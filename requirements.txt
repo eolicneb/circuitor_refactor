@@ -2,3 +2,4 @@ numpy
 requests
 minimalmodbus
 pytest
+pytest-mock
