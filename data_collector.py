@@ -39,12 +39,11 @@ class DataCollector:
                            for consulta in self.trifasica]
         self.datos.append(datos_por_linea + datos_trifasica)
 
-    def promedios(self, reset=True):
+    def calcular_promedios(self, reset=True):
         promedios = [sum(column) / self.conteo for column in zip(*self.datos)]
         if reset:
             self.reset_registro()
         self.ultimos_promedios = promedios
-        return promedios
 
     def promedios_dict(self):
         return {field: value for field, value in zip(self.encabezados, self.ultimos_promedios)}

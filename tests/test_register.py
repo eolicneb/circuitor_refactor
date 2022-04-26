@@ -3,9 +3,9 @@ from time import time, sleep
 from io import StringIO
 from collections import namedtuple
 
+import register
 from time_controller import Time
 from data_collector import DataCollector, CommaList
-import modbus_main
 
 
 class DataNotCollector(DataCollector):
@@ -30,21 +30,21 @@ class PersistentIO(StringIO):
 
 @pytest.fixture
 def mock_mandar_datos(mocker):
-    mock = mocker.patch('modbus_main.requests.get')
+    mock = mocker.patch('register.requests.get')
     return mock
 
 
 @pytest.fixture
 def mock_registrar_archivo(mocker):
     mock_file = PersistentIO()
-    mock_open = mocker.patch('modbus_main.open', return_value=mock_file)
+    mock_open = mocker.patch('register.open', return_value=mock_file)
     Mock = namedtuple('Mock', "function file")
     return Mock(mock_open, mock_file)
 
 
 def test_registrar(mock_registrar_archivo, mock_mandar_datos):
     collector = DataNotCollector()
-    modbus_main.registrar(Time(time()), collector, "http.com")
+    register.registrar(Time(time()), collector, "http.com")
     sleep(.1)
     assert mock_mandar_datos.called
     assert all(campo in mock_mandar_datos.call_args_list[0].kwargs['params']
