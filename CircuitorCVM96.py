@@ -72,7 +72,7 @@ class CircuitorCVM96(minimalmodbus.Instrument):
         se precisan pedir dos registros o una cantidad
         par. Para hacer eso la funcion adecuada es
         read_registers()"""
-        inp = self.read_registers(reg, numberOfRegisters=2)
+        inp = self.read_registers(reg, number_of_registers=2)
         from time import sleep
         # sleep(0.1)
         return (inp[1] + inp[0] * 2 ** 16) / 10. ** decimals
